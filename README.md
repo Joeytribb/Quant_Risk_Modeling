@@ -1,26 +1,27 @@
-# Quantitative Risk Modeling & Tail-Risk Hedging
+# Quantitative Risk Modeling & Thermodynamic Tail-Risk Hedging
 
-## Project Overview
-While aggressive alpha generation is the focus of most quantitative strategies, institutional survival requires rigorous risk modeling. This repository demonstrates advanced portfolio simulations, specifically modeling tail-risk insurance protocols (Gamma Scalping) against highly leveraged directional algorithms.
+## Abstract
+While academic literature heavily indexes on aggressive alpha generation in frictionless environments, institutional capacity requires rigorous, stochastic risk modeling. This repository demonstrates advanced Monte Carlo simulation pipelines designed to model tail-risk insurance protocols (Gamma Scalping). By simulating highly leveraged directional execution against continuous structural noise, this research mathematically proves that portfolio survival relies on managing systemic thermodynamic crashes.
 
-Retail strategies optimize for the highest backtest APY. Institutional strategies optimize for the highest probability of survival under flash-crash conditions.
-
-## Architecture
+## Methodologies & Empirical Simulation
 
 ### 1. Options-Hedged Scalping Simulator (`2_options_hedged_scalper.py`)
-A Monte Carlo simulator designed to stress-test a 50x leveraged directional scalping strategy.
-- **The Problem**: A high win-rate scalper will eventually suffer a catastrophic liquidation (flash crash) that wipes out the entire portfolio equity.
-- **The Solution (Insurance Protocol)**: The simulator deducts a continuous premium (e.g., 0.1% of equity per trade) to simulate buying Out-Of-The-Money (OTM) Put Options. 
-- **The Outcome**: When a flash crash triggers the liquidation condition in the simulation, the OTM Put option pays out an asymmetric 100x return, recovering the portfolio and allowing compounding to continue. This mathematically proves the necessity of Gamma Hedging in high-leverage portfolios.
+A stochastic Monte Carlo framework designed to stress-test leveraged directional exposure against sudden regime shifts (flash crashes).
+*   **The Thermodynamic Problem**: A high win-rate strategy executed with leverage will eventually encounter a 6-sigma tail event, resulting in catastrophic liquidation (a total loss of portfolio equity).
+*   **The Insurance Protocol (Gamma Hedging)**: The simulator mathematically injects a continuous premium decay (e.g., 0.1% of equity per trade) representing the systematic purchase of Out-Of-The-Money (OTM) Put Options. 
+*   **Empirical Outcome**: When a stochastic flash crash triggers liquidation conditions within the simulation, the OTM Put option yields an asymmetric convex return, recovering the portfolio and permitting compounding to resume. This simulation empirically justifies the necessity of Gamma Hedging in volatile high-frequency portfolios.
 
-### 2. Cross-Asset XGBoost Validation (`3_cross_asset_validation.py`)
-A robust machine learning classification pipeline to validate directional signals across multiple assets (ETH, ADA, XRP).
-- **Strict Regularization**: Uses a heavily constrained XGBoost classifier (`max_depth=3`, `learning_rate=0.05`) to prevent curve-fitting and overfitting, which is notoriously common in financial ML.
-- **Taker-Fee Monte Carlo**: Rather than relying on simple win-rates, the script runs a Monte Carlo simulation (10,000 paths) incorporating realistic futures taker fees to calculate the true "Million Dollar Probability" (the probability of compounding a $10k account to $1M before ruin).
+### 2. Cross-Asset Stochastic Validation (`3_cross_asset_validation.py`)
+A machine learning classification pipeline utilizing strictly regularized gradient boosting to validate directional signals across uncorrelated assets.
+*   **Structural Overfitting Prevention**: Employs a heavily constrained XGBoost classifier (`max_depth=3`, `learning_rate=0.05`) to prevent curve-fitting, a systemic bias in financial deep learning.
+*   **Friction-Adjusted Monte Carlo**: Rather than relying on simple directional accuracy (win-rate), the script executes a massive Monte Carlo simulation (10,000 parallel paths) incorporating realistic centralized exchange taker fees. It computes the exact stochastic probability of compounding a portfolio across varying volatility bands before encountering ruin.
 
-## Execution
-Run the simulators to observe the stochastic paths and survival probabilities:
+## Execution Environment
+Execute the simulators to generate the stochastic equity curves and survival probabilities:
 ```bash
+# Simulates the Gamma Hedged portfolio against flash crashes
 python 2_options_hedged_scalper.py
+
+# Validates cross-asset signaling through constrained XGBoost
 python 3_cross_asset_validation.py
 ```

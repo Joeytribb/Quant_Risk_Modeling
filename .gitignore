@@ -2,3 +2,23 @@ __pycache__/
 *.pyc
 .env
 data/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pkl
+
+# Node
+node_modules/
+
+# Data
+data/
+*.csv
+*.parquet
+*.json
